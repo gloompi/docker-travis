@@ -8,3 +8,16 @@ before_install:
 
 script:
   - docker container run gloompi/kubernetes-image yarn run test --watchAll=false
+
+deploy:
+  provider: elasticbeanstalk
+  region: "us-east-1"
+  app: "kubernetes"
+  env: "Kubernetes-env"
+  bucket_name: "elasticbeanstalk-us-east-1-020591658655"
+  bucket_path: "kubernetes"
+  on:
+    branch: master
+  access_key_id: $AWS_ACCESS_KEY
+  secret_access_key:
+    secure: "$AWS_SECRET_KEY"
